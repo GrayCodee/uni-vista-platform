@@ -7,15 +7,17 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useAuth } from '@/contexts/AuthContext';
+import { useLanguage } from '@/contexts/LanguageContext';
 import Navbar from '@/components/Navbar';
 import { useToast } from '@/components/ui/use-toast';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [role, setRole] = useState('student');
+  const [role, setRole] = useState<'student' | 'professor'>('student');
   const [isLoading, setIsLoading] = useState(false);
   const { login } = useAuth();
+  const { t } = useLanguage();
   const { toast } = useToast();
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -23,8 +25,8 @@ const Login = () => {
     
     if (!email || !password) {
       toast({
-        title: 'Missing Fields',
-        description: 'Please fill in all fields',
+        title: t('missingFields'),
+        description: t('fillAllFields'),
         variant: 'destructive',
       });
       return;
@@ -47,15 +49,15 @@ const Login = () => {
       <div className="flex-1 flex items-center justify-center p-4">
         <Card className="w-full max-w-md">
           <CardHeader className="space-y-1">
-            <CardTitle className="text-2xl font-bold tracking-tight">Login</CardTitle>
+            <CardTitle className="text-2xl font-bold tracking-tight">{t('loginTitle')}</CardTitle>
             <CardDescription>
-              Enter your credentials to access your account
+              {t('loginDescription')}
             </CardDescription>
           </CardHeader>
           <form onSubmit={handleSubmit}>
             <CardContent className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="email">Email</Label>
+                <Label htmlFor="email">{t('email')}</Label>
                 <Input
                   id="email"
                   type="email"
@@ -66,7 +68,7 @@ const Login = () => {
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="password">Password</Label>
+                <Label htmlFor="password">{t('password')}</Label>
                 <Input
                   id="password"
                   type="password"
@@ -76,26 +78,29 @@ const Login = () => {
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="role">I am a</Label>
-                <Select value={role} onValueChange={setRole}>
+                <Label htmlFor="role">{t('iAmA')}</Label>
+                <Select 
+                  value={role} 
+                  onValueChange={(value: 'student' | 'professor') => setRole(value)}
+                >
                   <SelectTrigger>
-                    <SelectValue placeholder="Select your role" />
+                    <SelectValue placeholder={t('role')} />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="student">Student</SelectItem>
-                    <SelectItem value="professor">Professor</SelectItem>
+                    <SelectItem value="student">{t('student')}</SelectItem>
+                    <SelectItem value="professor">{t('professor')}</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
             </CardContent>
             <CardFooter className="flex flex-col space-y-4">
               <Button type="submit" className="w-full" disabled={isLoading}>
-                {isLoading ? 'Logging in...' : 'Login'}
+                {isLoading ? 'Logging in...' : t('login')}
               </Button>
               <div className="text-center text-sm">
-                Don't have an account?{' '}
+                {t('dontHaveAccount')}{' '}
                 <Link to="/register" className="text-university-600 hover:text-university-800 font-medium">
-                  Register
+                  {t('register')}
                 </Link>
               </div>
             </CardFooter>

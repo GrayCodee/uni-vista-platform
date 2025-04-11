@@ -1,6 +1,7 @@
 
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { useLanguage } from '@/contexts/LanguageContext';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
@@ -8,12 +9,10 @@ import Logo from './Logo';
 import { 
   BarChart, 
   BookOpen, 
-  CalendarClock, 
   ChevronLeft, 
   ChevronRight, 
   FileText, 
   GraduationCap, 
-  Home, 
   LayoutDashboard, 
   PenLine, 
   School, 
@@ -25,76 +24,77 @@ type SidebarProps = {
   role: 'student' | 'professor';
 };
 
-const studentNavItems = [
-  {
-    title: 'Dashboard',
-    href: '/student/dashboard',
-    icon: <LayoutDashboard className="h-5 w-5" />,
-  },
-  {
-    title: 'Courses',
-    href: '/student/courses',
-    icon: <BookOpen className="h-5 w-5" />,
-  },
-  {
-    title: 'Lectures',
-    href: '/student/lectures',
-    icon: <School className="h-5 w-5" />,
-  },
-  {
-    title: 'Assignments',
-    href: '/student/assignments',
-    icon: <FileText className="h-5 w-5" />,
-  },
-  {
-    title: 'Exams',
-    href: '/student/exams',
-    icon: <PenLine className="h-5 w-5" />,
-  },
-  {
-    title: 'Grades',
-    href: '/student/grades',
-    icon: <BarChart className="h-5 w-5" />,
-  },
-];
-
-const professorNavItems = [
-  {
-    title: 'Dashboard',
-    href: '/professor/dashboard',
-    icon: <LayoutDashboard className="h-5 w-5" />,
-  },
-  {
-    title: 'My Courses',
-    href: '/professor/courses',
-    icon: <BookOpen className="h-5 w-5" />,
-  },
-  {
-    title: 'Upload Lectures',
-    href: '/professor/lectures',
-    icon: <Upload className="h-5 w-5" />,
-  },
-  {
-    title: 'Assignments',
-    href: '/professor/assignments',
-    icon: <FileText className="h-5 w-5" />,
-  },
-  {
-    title: 'Exams',
-    href: '/professor/exams',
-    icon: <PenLine className="h-5 w-5" />,
-  },
-  {
-    title: 'View Submissions',
-    href: '/professor/submissions',
-    icon: <Users className="h-5 w-5" />,
-  },
-];
-
 export function DashboardSidebar({ role }: SidebarProps) {
   const [collapsed, setCollapsed] = useState(false);
   const location = useLocation();
+  const { t } = useLanguage();
   
+  const studentNavItems = [
+    {
+      title: t('dashboard'),
+      href: '/student/dashboard',
+      icon: <LayoutDashboard className="h-5 w-5" />,
+    },
+    {
+      title: t('courses'),
+      href: '/student/courses',
+      icon: <BookOpen className="h-5 w-5" />,
+    },
+    {
+      title: t('lectures'),
+      href: '/student/lectures',
+      icon: <School className="h-5 w-5" />,
+    },
+    {
+      title: t('assignments'),
+      href: '/student/assignments',
+      icon: <FileText className="h-5 w-5" />,
+    },
+    {
+      title: t('exams'),
+      href: '/student/exams',
+      icon: <PenLine className="h-5 w-5" />,
+    },
+    {
+      title: t('grades'),
+      href: '/student/grades',
+      icon: <BarChart className="h-5 w-5" />,
+    },
+  ];
+
+  const professorNavItems = [
+    {
+      title: t('dashboard'),
+      href: '/professor/dashboard',
+      icon: <LayoutDashboard className="h-5 w-5" />,
+    },
+    {
+      title: t('myCourses'),
+      href: '/professor/courses',
+      icon: <BookOpen className="h-5 w-5" />,
+    },
+    {
+      title: t('uploadLectures'),
+      href: '/professor/lectures',
+      icon: <Upload className="h-5 w-5" />,
+    },
+    {
+      title: t('assignments'),
+      href: '/professor/assignments',
+      icon: <FileText className="h-5 w-5" />,
+    },
+    {
+      title: t('exams'),
+      href: '/professor/exams',
+      icon: <PenLine className="h-5 w-5" />,
+    },
+    {
+      title: t('viewSubmissions'),
+      href: '/professor/submissions',
+      icon: <Users className="h-5 w-5" />,
+    },
+  ];
+
   const navItems = role === 'student' ? studentNavItems : professorNavItems;
 
   return (
