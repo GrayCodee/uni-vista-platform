@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from 'react';
 import DashboardLayout from '@/components/DashboardLayout';
 import PageHeader from '@/components/PageHeader';
@@ -258,7 +257,7 @@ const ProfessorLectures = () => {
 
   const publishLecture = (lectureId: string) => {
     const updatedLectures = lectures.map(lecture => 
-      lecture.id === lectureId ? { ...lecture, status: 'published' } : lecture
+      lecture.id === lectureId ? { ...lecture, status: 'published' as const } : lecture
     );
     
     setLectures(updatedLectures);

@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from 'react';
 import DashboardLayout from '@/components/DashboardLayout';
 import PageHeader from '@/components/PageHeader';
@@ -244,7 +243,7 @@ const ProfessorAssignments = () => {
 
   const publishAssignment = (assignmentId: string) => {
     const updatedAssignments = assignments.map(assignment => 
-      assignment.id === assignmentId ? { ...assignment, status: 'published' } : assignment
+      assignment.id === assignmentId ? { ...assignment, status: 'published' as const } : assignment
     );
     
     setAssignments(updatedAssignments);

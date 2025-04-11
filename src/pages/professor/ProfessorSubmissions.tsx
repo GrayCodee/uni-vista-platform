@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from 'react';
 import DashboardLayout from '@/components/DashboardLayout';
 import PageHeader from '@/components/PageHeader';
@@ -269,7 +268,7 @@ const ProfessorSubmissions = () => {
       submission.id === selectedSubmission.id 
         ? { 
             ...submission, 
-            status: 'graded', 
+            status: 'graded' as const, 
             grade: gradeNum, 
             feedback: feedbackValue 
           } 

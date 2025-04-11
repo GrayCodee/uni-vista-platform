@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from 'react';
 import DashboardLayout from '@/components/DashboardLayout';
 import PageHeader from '@/components/PageHeader';
@@ -258,7 +257,7 @@ const ProfessorExams = () => {
 
   const publishExam = (examId: string) => {
     const updatedExams = exams.map(exam => 
-      exam.id === examId ? { ...exam, status: 'scheduled' } : exam
+      exam.id === examId ? { ...exam, status: 'scheduled' as const } : exam
     );
     
     setExams(updatedExams);

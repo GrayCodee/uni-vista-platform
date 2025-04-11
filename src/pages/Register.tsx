@@ -15,7 +15,7 @@ const Register = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [role, setRole] = useState('student');
+  const [role, setRole] = useState<'student' | 'professor'>('student');
   const [isLoading, setIsLoading] = useState(false);
   const { register } = useAuth();
   const { toast } = useToast();
@@ -118,7 +118,7 @@ const Register = () => {
               </div>
               <div className="space-y-2">
                 <Label htmlFor="role">I am a</Label>
-                <Select value={role} onValueChange={setRole}>
+                <Select value={role} onValueChange={(value: 'student' | 'professor') => setRole(value)}>
                   <SelectTrigger>
                     <SelectValue placeholder="Select your role" />
                   </SelectTrigger>
