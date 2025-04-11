@@ -14,8 +14,8 @@ type AuthContextType = {
   user: User | null;
   token: string | null;
   isAuthenticated: boolean;
-  login: (email: string, password: string, role: string) => Promise<void>;
-  register: (name: string, email: string, password: string, role: string) => Promise<void>;
+  login: (email: string, password: string, role: 'student' | 'professor') => Promise<void>;
+  register: (name: string, email: string, password: string, role: 'student' | 'professor') => Promise<void>;
   logout: () => void;
 };
 
@@ -50,7 +50,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     setIsLoading(false);
   }, []);
 
-  const login = async (email: string, password: string, role: string) => {
+  const login = async (email: string, password: string, role: 'student' | 'professor') => {
     try {
       setIsLoading(true);
       
@@ -71,7 +71,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
           id: '1',
           name: email.split('@')[0],
           email,
-          role,
+          role: role as 'student' | 'professor',
         }
       };
       
@@ -104,7 +104,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     }
   };
 
-  const register = async (name: string, email: string, password: string, role: string) => {
+  const register = async (name: string, email: string, password: string, role: 'student' | 'professor') => {
     try {
       setIsLoading(true);
       
